@@ -15,11 +15,11 @@ namespace Space_Shoter
 {
     public partial class Form1 : Form
     {
-        WMPLib.WindowsMediaPlayer Shoot = new WMPLib.WindowsMediaPlayer();
-        WMPLib.WindowsMediaPlayer explotion = new WMPLib.WindowsMediaPlayer();
-        WMPLib.WindowsMediaPlayer gameOverSound = new WMPLib.WindowsMediaPlayer();
-        WMPLib.WindowsMediaPlayer monsterKill = new WMPLib.WindowsMediaPlayer();
-        WMPLib.WindowsMediaPlayer rampage = new WMPLib.WindowsMediaPlayer();
+        WindowsMediaPlayer Shoot = new WindowsMediaPlayer();
+        WindowsMediaPlayer explotion = new WindowsMediaPlayer();
+        WindowsMediaPlayer gameOverSound = new WindowsMediaPlayer();
+        WindowsMediaPlayer monsterKill = new WindowsMediaPlayer();
+        WindowsMediaPlayer rampage = new WindowsMediaPlayer();
 
 
 
@@ -115,7 +115,7 @@ namespace Space_Shoter
                 enemyBullet.Top += bulletSpeed / 2;
                 if (enemyBullet.Bounds.IntersectsWith(player.Bounds))//when a object bounds with another
                 {
-                    explotion.URL = @"C:\Users\JARVIS\Desktop\Licenta\Space Shoter\sounds\boom.mp3";
+                    explotion.URL = @"sounds\boom.mp3";
 
                     gameOver();
                 }
@@ -165,7 +165,7 @@ namespace Space_Shoter
 
             if (bullet.Bounds.IntersectsWith(enemyOne.Bounds))//when a object bounds with another
             {
-                explotion.URL = @"C:\Users\JARVIS\Desktop\Licenta\Space Shoter\sounds\boom.mp3";
+                explotion.URL = @"sounds\\boom.mp3";
                 score += 1;//score will increas by 1
                 enemyOne.Top = -450;//we reset the enemy to come again
                 enemyOne.Left = rnd.Next(20, 600);//we give him a random so he dosnt spown the same
@@ -173,7 +173,7 @@ namespace Space_Shoter
             }
             if (bullet.Bounds.IntersectsWith(enemyTwo.Bounds))
             {
-                explotion.URL = @"C:\Users\JARVIS\Desktop\Licenta\Space Shoter\sounds\boom.mp3";
+                explotion.URL = @"sounds\boom.mp3";
                 score += 1;
                 enemyTwo.Top = -700; //this one spowns more behaind
                 enemyTwo.Left = rnd.Next(20, 600);
@@ -181,23 +181,29 @@ namespace Space_Shoter
             }
             if (bullet.Bounds.IntersectsWith(enemyThree.Bounds))
             {
-                explotion.URL = @"C:\Users\JARVIS\Desktop\Licenta\Space Shoter\sounds\boom.mp3";
+                explotion.URL = @"sounds\boom.mp3";
                 score += 1;
                 enemyThree.Top = -800;
                 enemyThree.Left = rnd.Next(20, 600);
                 shooting = false;
             }
+            if (player.Bounds.IntersectsWith(enemyThree.Bounds)||
+                player.Bounds.IntersectsWith(enemyTwo.Bounds)||
+                enemyTwo.Bounds.IntersectsWith(enemyThree.Bounds))
+            {
+                gameOver();
+            }
             //Game SPEED UP
             if (score == 5)
             {
-                monsterKill.URL = @"C:\Users\JARVIS\Desktop\Licenta\Space Shoter\sounds\Monster Kill.mp3";
+                monsterKill.URL = @"sounds\Monster Kill.mp3";
                 playerSpeed = 12;
                 enemySpeed = 6;
                 txtScore.Text += Environment.NewLine + "MONSTER KILL!!!";
             }
             if(score == 10)
             {
-                rampage.URL = @"C:\Users\JARVIS\Desktop\Licenta\Space Shoter\sounds\Rampage.mp3";
+                rampage.URL = @"sounds\Rampage.mp3";
                 playerSpeed = 15;
                 enemySpeed = 8;
                 txtScore.Text += Environment.NewLine + "RAMPAGE!!!";
@@ -253,7 +259,7 @@ namespace Space_Shoter
             if (e.KeyCode == Keys.Space && shooting == false)//shooting logic
             {
                 shooting = true;
-                Shoot.URL = @"C:\Users\JARVIS\Desktop\Licenta\Space Shoter\sounds\shoot.mp3";
+                Shoot.URL = @"sounds\shoot.mp3";
 
                 bullet.Top = player.Top + 30;//bullet spowns from spaceShip
                 bullet.Left = player.Left + (player.Width /2 ) -(bullet.Width /2);
@@ -270,6 +276,7 @@ namespace Space_Shoter
         {
             gameTimer.Start();
             enemySpeed = 3;
+            playerSpeed = 9;
 
             enemyOne.Left = rnd.Next(20, 600);
             enemyTwo.Left = rnd.Next(20, 600);
@@ -292,7 +299,7 @@ namespace Space_Shoter
         private void gameOver()
         {
             isGameOver = true;
-            gameOverSound.URL = @"C:\Users\JARVIS\Desktop\Licenta\Space Shoter\sounds\Game Over.mp3";
+            gameOverSound.URL = @"sounds\Game Over.mp3";
 
             gameTimer.Stop();
             txtScore.Text += Environment.NewLine + "Game Over!!!" + Environment.NewLine + "Press Enter to try again.";
